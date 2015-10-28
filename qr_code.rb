@@ -2,8 +2,6 @@ require 'chunky_png'
 require 'rqrcode'
 
 qrcode = RQRCode::QRCode.new("http://github.com/")
-image = qrcode.as_png	
-# string = qrcode.to_s
 
 image = qrcode.as_png(
           resize_gte_to: false,
@@ -15,17 +13,10 @@ image = qrcode.as_png(
           module_px_size: 6,
           )
 
-# image = ChunkyPNG::Image.new(16, 16, ChunkyPNG::Color::TRANSPARENT)
-# image[1,1] = ChunkyPNG::Color.rgba(10, 20, 30, 128)
-# png[2,1] = ChunkyPNG::Color('black @ 0.5')
-image.save('img/qr_code.png', :interlace => true)
-
 qr_string = ''
 print "Choisissez une phrase à transformer en QR code? "
 qr_string = gets
 puts "#{qr_string}"
-
-
 
 qr = RQRCode::QRCode.new( "#{qr_string}", :size => 4, :level => :h )
 qr.modules.each do |row|
@@ -35,3 +26,4 @@ qr.modules.each do |row|
     print "\n"
 end
 
+image.save( "qr_img/#{qr_string}.png", :interlace => true)
